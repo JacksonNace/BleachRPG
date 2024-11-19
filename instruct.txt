@@ -1,0 +1,161 @@
+Bleach RPG Turn Based Battle Game
+By Jackson Nace, 2300153
+
+
+Classes: 
+Character class: 
+This will be my parent classes for my later three classes. This will contain the variables 
+Str name:
+Int level:
+int health:
+Int spiritual:
+Int stamina:
+Int atk_power:
+Int defense:
+Int experience:
+
+Different methods my character class should have would be 
+attack(); - calculate attack power and subtract from opponents health
+defend(); - unsure if I should have a separate function for defense, as defense will subtract from attack power. 
+rest(); - used to restore mana/attack power
+save(); - save all current stats
+load(); - load existing file stats
+
+Derived classes moves/abilities:
+These classes are derived from the character class to tell specific abilities/stats. Each of these derived classes will have a stat boost or stat decrease, along with a possible different story mode. Further explanation in my UML diagram below.
+Shinigami/soul reaper:
+Shikai- power up attack stat
+Bankai - significantly boosts stats, drains stamina. Also turns off any benefits from shikai
+Flash step - boost stamina + physical attack
+
+Quincy:
+Letzt Stil - Similar to shikai
+Vollstandig - significantly boosts damage, lowers defense also turns off any benefits from shikai if its active
+Holy arrow - spiritual attack move
+Hollow:
+Visor: Similar to shikai
+Hollowifcation - full health regeneration, attack boost increase, stamina decrease, UNABLE to choose next attacks. Turns off visor boost if active
+La cero - significant damage, burns a lot of stamina, spiritual attack
+Bite - Physical attack
+
+Main menu- 
+Create new character - use case 1
+Load previous character - use case 2
+Exit - use case 3 /close program
+If the user input is incorrect, output “invalid selection”
+
+Use case 1: Create a new character
+After selecting create new character on the main menu,
+- Shinigami
+- Quincy
+- Hollow
+- Back
+If the player were to choose one of the three classes, the program will prompt for a name for the character.
+Based on the derived classes stats, stats will be initialized to starter stats, possibly around 100. Set level to 1, experience to 0, etc
+Move to tutorial/gameplay.
+
+If player selects back, they return to the main menu mentioned previously.
+
+Use case 2: Load existing character
+If the player selects “load previous character” in the main menu, 
+1.Bring up saved character files and allow the user to pick between them
+2. Player will input the character name they prefer
+3. Initialize all the stats or take them in and begin the player where they left off.
+If no files or saved memory is available, the program will output “no saved characters” and return them to the main menu.
+Use case 3: exit
+After selecting exit, the program will prompt the user
+“Are you sure you want to exit? (Y/N)” and wait for a response. If Y, the program stops running. If N it returns the player to the main menu.
+
+I will not have the player be able to save their current information while in battle. They will have to wait until they die or win the battle. And they will be prompted whether to continue, save, or exit. If they choose exit, it will prompt the user “Are you sure you have saved? (Y/N)” and wait for a response before closing or returning the player.
+
+UML
+These classes are derived from the character class because they share a lot of the same characteristics. They all have attacks, levels, health, spiritual, stamina, etc. With all these functions being shared, we can save lots of times by deriving them from our Character class instead, and also improving our code readability.
+Character Class
+Str name:
+Int level:
+Int health:
+Int mana:
+Int stamina:
+Int atk_power:
+Int defense:
+Int experience:
++Void attack();
++Void defend();
++Void rest();
++Void save();
++Void load();
+
+		^
+|
+—-----------------------------------------------------------------------
+Shinigami
+Quincy
+Hollow
+-ShikaiActive(); bool
+-BankaiActive(); bool
+
+
+-LetztStilActive(); bool
+-VollstandigActive(); bool
+-visorActive(); bool
+-hollowificationActive(); bool
+shikai(); void
+bankai(); void
+flashstep(); void
++ letztStil(); void
++vollstandig(); void
++ holyarrow(); void
++visor();
++hollowification();
++laCero();
+
+
+PSUEDOCODE - BASIC SORRY
+
+
+Class Character {
+Private:
+Name,level,health,stamina,attack power, defense, spiritual, experience
+Public: 
+Some type of constructor to initlialize character
+Void attack()
+Void defend()
+Void rest()
+Void save()
+Void load()
+
+Class Shinigami
+Private:
+Bool Shikai active and bankaiActive;
+Public: constructor
+
+Void shikai() to first check if its active, then activate and boost specific character stats. Will need to import the character class
+Void bankai - check for current stamina and decrease and increase atk
+Void flashstep() - increase stats/attack
+
+Quincy and hollow will be similar
+
+
+Int main() {
+Declare variables needed for player inputs
+Display choice menu
+Create new char
+Load prev character
+exit
+Cin >> choice
+Switch statement depending on integer choice
+If 1 = choose character name and derived class
+Have them pick between 
+Shinigami
+
+Quincy
+
+hollow
+Etc then start game
+If load previous character import all files and display on screen
+John
+Magic man
+Bob
+	Or it will display error and reshow the main menu
+}
+
