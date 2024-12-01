@@ -6,58 +6,79 @@ using namespace std;
 
 class Character {
 protected:
-    string name;
-    int level;
-    int health;
-    int stamina;
-    int attack;
-    int defense;
-    int experience;
 
 public:
-    Character(const string& name, int level, int health, int stamina, int attack, int defense, int experience); // constructor
+  string name;
+  int level;
+  int health;
+  int stamina;
+  int ATK;
+  int defense;
+  int experience;
+  int stage;
 
-    virtual void powerup1();
-    virtual void powerup2();
-    virtual void attack();  // virtual allows these to be overridden
-    void rest();                     
-    void save() const;               
-    void load() const;                     
-
-    virtual void displayStats() const; 
-    virtual ~Character() = default;    // destructor?
+  Character(const string& name, int level, int health, int stamina, int ATK, int defense, int experience, int stage);
+  
+  virtual void powerup1();
+  virtual void powerup2();
+  virtual void attack(Character& target);
+  void rest();
+  void gainExperience(int xp);
+  void levelUp();
+  void save() const;
+  void load();
+  virtual string getClassName() const = 0;
+  virtual void displayStats() const;
 };
-
 
 class Shinigami : public Character {
 public:
-    Shinigami(const string& name); // constructor
-
-    void powerup1() override;   //shikai
-    void powerup2() override;   //bankai
-    void attack() override; // flash step attack
+  Shinigami(const string& name);
+  void powerup1() override;
+  void powerup2() override;
+  void attack(Character& target) override;
+  string getClassName() const override {
+    return "Shinigami";
+  }
 };
 
 class Quincy : public Character {
 public:
-    Quincy(const string& name);
-
-    void powerup1() override; // LetztStil
-    void powerup2() override; // vollstandig
-    void attack() override; // holy arrow
+  Quincy(const string& name);
+  void powerup1() override;
+  void powerup2() override;
+  void attack(Character& target) override;
+  string getClassName() const override {
+    return "Quincy";
+  }
 };
 
 class Hollow : public Character {
 public:
-    Hollow(const string& name);
-    void powerup1() override; // Ressurricion
-    void powerup2() override; // visor       
-    void attack() override; //la cero       
+  Hollow(const string& name);
+  void powerup1() override;
+  void powerup2() override;
+  void attack(Character& target) override;
+  string getClassName() const override {
+    return "Hollow";
+  }
 };
 
+class Enemy : public Character {
+public:
+  Enemy(const string& name, int health, int attack, int defense);
 
-//fight function? may make the main.cpp code easier to read.
-// wait until hp drops, tell player to rest or force rest if stamina dips below amount required, 
-// force list dependent on class like 1. attack 2. cero 3. rest 4. bankai etc until one of the characters in the battle's hp reaches 0
+  string getClassName() const override;
+
+  void attack(Character& target) override;
+
+  void displayStats() const override;
+
+  bool isDefeated() const;
+};
+
+void fight(Character& player, Enemy& enemy);
+void chooseClass(Character*& player);
+void loadPlayer(Character*& player);
 
 #endif
