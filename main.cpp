@@ -3,6 +3,11 @@
 using namespace std;
 
 
+
+
+
+
+
 int main() {
   Character* playerCharacter = nullptr;
   int choice;
@@ -39,9 +44,9 @@ int main() {
             cout << "Invalid choice. \nQuitting.";
             break;
         }
-          break;
       case 2: // take in previous character data and load position in game
-          break;
+        // load data
+        break;
       case 3:
           cout << "Are you sure you want to exit? (Y/N): ";
           // Exit
@@ -50,5 +55,13 @@ int main() {
           cout << "Invalid selection. Please try again.\n";
           break;
   }
+  // The character should be loaded by now
+
+
+//fight function for enemy class?
+
+
+  // switch statement to tell which level a player is at and start them there?
+
   return 0;
 }
